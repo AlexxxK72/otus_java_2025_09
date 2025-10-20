@@ -11,6 +11,12 @@ public class Customer {
         this.scores = scores;
     }
 
+    public Customer(Customer other) {
+        this.id = other.id;
+        this.name = other.name;
+        this.scores = other.scores;
+    }
+
     public long getId() {
         return id;
     }
