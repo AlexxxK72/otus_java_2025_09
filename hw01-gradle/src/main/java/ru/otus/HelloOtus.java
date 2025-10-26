@@ -13,4 +13,5 @@ public class HelloOtus {
 
         System.out.println(result); // Выведет: Hello Otus Guava
     }
+
 }
