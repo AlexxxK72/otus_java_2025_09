@@ -27,20 +27,24 @@ public class TestRunner {
             List<Method> testMethods = getMethodsWithAnnotation(clazz, Test.class);
 
             testMethods.forEach(method -> {
+                Object subjectTest = null;
                 try {
                     results.put(method.getName(), null);
-                    Constructor<?> defaultConstructor = clazz.getConstructor();
-                    var subjectTest = defaultConstructor.newInstance();
 
-                    beforeMethods.forEach(beforeMethod -> {
-                        callMethod(subjectTest, beforeMethod);
-                    });
+                    Constructor<?> defaultConstructor = clazz.getConstructor();
+                    subjectTest = defaultConstructor.newInstance();
+
+                    Object finalSubject = subjectTest;
+                    beforeMethods.forEach(beforeMethod -> callMethod(finalSubject, beforeMethod));
                     callMethod(subjectTest, method);
-                    afterMethods.forEach(afterMethod -> {
-                        callMethod(subjectTest, afterMethod);
-                    });
+
                 } catch (Exception e) {
                     results.put(results.lastEntry().getKey(), getErrorMessage(e));
+                } finally {
+                    Object finalSubject = subjectTest;
+                    if (finalSubject != null) {
+                        afterMethods.forEach(afterMethod -> callMethod(finalSubject, afterMethod));
+                    }
                 }
             });
 
