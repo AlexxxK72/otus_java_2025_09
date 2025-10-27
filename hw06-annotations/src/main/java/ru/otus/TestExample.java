@@ -38,13 +38,13 @@ public class TestExample {
     @Test
     void testNotEquals() {
         log.info("Call test method: 1");
-        b = 2;
         assertEquals(a, b);
     }
 
     @Test
     void testEquals() {
         log.info("Call test method: 2");
+        b = 2;
         assertEquals(a, b);
     }
 }
