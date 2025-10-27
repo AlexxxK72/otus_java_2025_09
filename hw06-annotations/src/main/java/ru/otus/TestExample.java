@@ -16,7 +16,7 @@ public class TestExample {
     @Before
     void before1() {
         a = 2;
-        b = 2;
+        b = 3;
         log.info("Call before method: 1");
     }
 
@@ -36,15 +36,15 @@ public class TestExample {
     }
 
     @Test
-    void testEquals() {
+    void testNotEquals() {
         log.info("Call test method: 1");
+        b = 2;
         assertEquals(a, b);
     }
 
     @Test
-    void testNotEquals() {
+    void testEquals() {
         log.info("Call test method: 2");
-        a = 3;
         assertEquals(a, b);
     }
 }
