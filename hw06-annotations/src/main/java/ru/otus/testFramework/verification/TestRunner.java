@@ -6,15 +6,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import ru.otus.testFramework.annotation.After;
 import ru.otus.testFramework.annotation.Before;
 import ru.otus.testFramework.annotation.Test;
 
+@Slf4j
 public class TestRunner {
-
-    private static final Logger log = LoggerFactory.getLogger(TestRunner.class);
 
     private TestRunner() {}
 
