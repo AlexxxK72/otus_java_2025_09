@@ -13,7 +13,7 @@ dependencies {
 }
 
 tasks {
-    create<ShadowJar>("asmJar") {
+    create<ShadowJar>("asmDemoJar") {
         archiveBaseName.set("asmDemo")
         archiveVersion.set("")
         archiveClassifier.set("")
