@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.EnumMap;
 import java.util.Map;
 import model.Denomination;
+import model.WithdrawalResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import service.CashDispenser;
@@ -38,9 +39,9 @@ class AtmFacadeTest {
         atm.deposit(deposit);
 
         // Снимаем 200
-        Map<Denomination, Integer> withdrawn = atm.withdraw(200);
+        WithdrawalResult withdrawn = atm.withdraw(200);
 
-        assertEquals(2, withdrawn.get(Denomination.HUNDRED)); // 2 x 100
+        assertEquals(2, withdrawn.getBanknotes().get(Denomination.HUNDRED)); // 2 x 100
         assertEquals(100, atm.getBalance()); // Остаток 100
     }
 
@@ -65,10 +66,10 @@ class AtmFacadeTest {
         atm.deposit(deposit);
 
         // Снимаем ровно 150
-        Map<Denomination, Integer> withdrawn = atm.withdraw(150);
+        WithdrawalResult withdrawn = atm.withdraw(150);
 
-        assertEquals(1, withdrawn.get(Denomination.FIFTY));
-        assertEquals(1, withdrawn.get(Denomination.HUNDRED));
+        assertEquals(1, withdrawn.getBanknotes().get(Denomination.FIFTY));
+        assertEquals(1, withdrawn.getBanknotes().get(Denomination.HUNDRED));
         assertEquals(0, atm.getBalance());
     }
 }

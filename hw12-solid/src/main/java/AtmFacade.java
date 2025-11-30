@@ -1,5 +1,6 @@
 import java.util.Map;
 import model.Denomination;
+import model.WithdrawalResult;
 import service.CashDispenser;
 import strategy.WithdrawStrategy;
 
@@ -17,7 +18,7 @@ public class AtmFacade {
         dispenser.deposit(banknotes);
     }
 
-    public Map<Denomination, Integer> withdraw(int amount) {
+    public WithdrawalResult withdraw(int amount) {
         Map<Denomination, Integer> available = dispenser.getAvailableNotes();
         Map<Denomination, Integer> plan = withdrawStrategy.calculate(amount, available);
 
@@ -26,7 +27,7 @@ public class AtmFacade {
         }
 
         dispenser.tryWithdraw(plan);
-        return plan;
+        return new WithdrawalResult(plan);
     }
 
     public int getBalance() {
