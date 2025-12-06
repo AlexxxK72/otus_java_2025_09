@@ -1,9 +1,6 @@
 package strategy;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import model.Denomination;
 
 public class MinimalBanknotesWithdrawStrategy implements WithdrawStrategy {
@@ -28,7 +25,7 @@ public class MinimalBanknotesWithdrawStrategy implements WithdrawStrategy {
         }
 
         if (remaining != 0) {
-            return null;
+            return new HashMap<>();
         }
 
         return result;

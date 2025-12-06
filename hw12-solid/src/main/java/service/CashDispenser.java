@@ -7,10 +7,8 @@ import model.Denomination;
 public class CashDispenser {
     private final Map<Denomination, Integer> cells = new EnumMap<>(Denomination.class);
 
-    public CashDispenser() {
-        for (Denomination d : Denomination.values()) {
-            cells.put(d, 0);
-        }
+    public CashDispenser(Map<Denomination, Integer> cellsInitial) {
+        cells.putAll(cellsInitial);
     }
 
     public void deposit(Map<Denomination, Integer> banknotes) {

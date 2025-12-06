@@ -10,14 +10,17 @@ import service.CashDispenser;
 import strategy.MinimalBanknotesWithdrawStrategy;
 import strategy.WithdrawStrategy;
 
-class AtmFacadeTest {
-    private AtmFacade atm;
+class AtmImplTest {
+    private AtmImpl atm;
 
     @BeforeEach
     void setup() {
-        var dispenser = new CashDispenser();
+        Map<Denomination, Integer> cellsInitial = new EnumMap<>(Denomination.class);
+        cellsInitial.put(Denomination.HUNDRED, 0);
+        cellsInitial.put(Denomination.FIFTY, 0);
+        var dispenser = new CashDispenser(cellsInitial);
         WithdrawStrategy strategy = new MinimalBanknotesWithdrawStrategy();
-        atm = new AtmFacade(dispenser, strategy);
+        atm = new AtmImpl(dispenser, strategy);
     }
 
     @Test
