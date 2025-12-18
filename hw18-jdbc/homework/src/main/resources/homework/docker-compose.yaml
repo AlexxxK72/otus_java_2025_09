@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres:13
+    container_name: pg-docker
+    ports:
+      - "5430:5432"
+    environment:
+      POSTGRES_USER: usr
+      POSTGRES_PASSWORD: pwd
+      POSTGRES_DB: demoDB
+    restart: unless-stopped
