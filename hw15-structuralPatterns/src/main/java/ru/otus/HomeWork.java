@@ -1,5 +1,16 @@
 package ru.otus;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import ru.otus.handler.ComplexProcessor;
+import ru.otus.listener.ListenerPrinterConsole;
+import ru.otus.listener.homework.HistoryListener;
+import ru.otus.model.Message;
+import ru.otus.model.ObjectForMessage;
+import ru.otus.processor.homework.DateTimeProvider;
+import ru.otus.processor.homework.ProcessorSwapFields10And12;
+import ru.otus.processor.homework.ProcessorThrowExceptionOnEvenSecond;
+
 public class HomeWork {
 
     /*
@@ -16,9 +27,34 @@ public class HomeWork {
     */
 
     public static void main(String[] args) {
-        /*
-          по аналогии с Demo.class
-          из элеменов "to do" создать new ComplexProcessor и обработать сообщение
-        */
+        // источник времени
+        DateTimeProvider dateTimeProvider = LocalDateTime::now;
+
+        // процессоры из задания
+        var processors =
+                List.of(new ProcessorSwapFields10And12(), new ProcessorThrowExceptionOnEvenSecond(dateTimeProvider));
+        var complexProcessor =
+                new ComplexProcessor(processors, ex -> System.out.println("Exception caught: " + ex.getMessage()));
+        // listeners
+        var historyListener = new HistoryListener();
+        var consoleListener = new ListenerPrinterConsole();
+
+        complexProcessor.addListener(historyListener);
+        complexProcessor.addListener(consoleListener);
+
+        var field13 = new ObjectForMessage();
+        field13.setData(List.of("one", "two"));
+
+        var message = new Message.Builder(1L)
+                .field11("field11")
+                .field12("field12")
+                .field13(field13)
+                .build();
+
+        // обработка
+        complexProcessor.handle(message);
+
+        // читаем историю
+        historyListener.findMessageById(1L).ifPresent(m -> System.out.println("From history: " + m));
     }
 }
