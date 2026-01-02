@@ -8,7 +8,7 @@ import ru.otus.listener.homework.HistoryListener;
 import ru.otus.model.Message;
 import ru.otus.model.ObjectForMessage;
 import ru.otus.processor.homework.DateTimeProvider;
-import ru.otus.processor.homework.ProcessorSwapFields10And12;
+import ru.otus.processor.homework.ProcessorSwapFields11And12;
 import ru.otus.processor.homework.ProcessorThrowExceptionOnEvenSecond;
 
 public class HomeWork {
@@ -32,7 +32,7 @@ public class HomeWork {
 
         // процессоры из задания
         var processors =
-                List.of(new ProcessorSwapFields10And12(), new ProcessorThrowExceptionOnEvenSecond(dateTimeProvider));
+                List.of(new ProcessorSwapFields11And12(), new ProcessorThrowExceptionOnEvenSecond(dateTimeProvider));
         var complexProcessor =
                 new ComplexProcessor(processors, ex -> System.out.println("Exception caught: " + ex.getMessage()));
         // listeners
