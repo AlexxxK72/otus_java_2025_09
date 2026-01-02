@@ -6,6 +6,9 @@ include("hw08-gc")
 include("hw10-byteCodes")
 include("hw12-solid")
 include("hw15-structuralPatterns")
+include("hw16-io")
+include("hw18-jdbc:demo")
+include("hw18-jdbc:homework")
 
 pluginManagement {
     val jgitver: String by settings
