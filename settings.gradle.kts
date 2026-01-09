@@ -10,6 +10,7 @@ include("hw16-io")
 include("hw18-jdbc:demo")
 include("hw18-jdbc:homework")
 include("hw21-jpql")
+include("hw22-cache")
 
 pluginManagement {
     val jgitver: String by settings
@@ -32,4 +33,3 @@ pluginManagement {
         id("com.diffplug.spotless") version spotless
     }
 }
-
