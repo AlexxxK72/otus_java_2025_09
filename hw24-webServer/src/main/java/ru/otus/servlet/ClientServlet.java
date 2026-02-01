@@ -8,29 +8,29 @@ import java.util.*;
 import ru.otus.crm.model.Address;
 import ru.otus.crm.model.Client;
 import ru.otus.crm.model.Phone;
+import ru.otus.crm.service.DBServiceClient;
 import ru.otus.crm.service.TemplateProcessor;
-import ru.otus.dao.ClientDao;
 
 public class ClientServlet extends HttpServlet {
 
-    private static final String USERS_PAGE_TEMPLATE = "clients.html";
+    private static final String CLIENTS_PAGE_TEMPLATE = "clients.html";
     private static final String TEMPLATE_ATTR_CLIENTS = "clients";
 
-    private final transient ClientDao clientDao;
+    private final transient DBServiceClient dbServiceClient;
     private final transient TemplateProcessor templateProcessor;
 
-    public ClientServlet(ClientDao clientDao, TemplateProcessor templateProcessor) {
-        this.clientDao = clientDao;
+    public ClientServlet(DBServiceClient dbServiceClient, TemplateProcessor templateProcessor) {
+        this.dbServiceClient = dbServiceClient;
         this.templateProcessor = templateProcessor;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws IOException {
         Map<String, Object> paramsMap = new HashMap<>();
-        paramsMap.put(TEMPLATE_ATTR_CLIENTS, clientDao.findAll());
+        paramsMap.put(TEMPLATE_ATTR_CLIENTS, dbServiceClient.findAll());
 
         response.setContentType("text/html");
-        response.getWriter().println(templateProcessor.getPage(USERS_PAGE_TEMPLATE, paramsMap));
+        response.getWriter().println(templateProcessor.getPage(CLIENTS_PAGE_TEMPLATE, paramsMap));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ClientServlet extends HttpServlet {
                         .toList();
 
         Client client = new Client(null, name, address, phones);
-        clientDao.add(client);
+        dbServiceClient.saveClient(client);
         resp.sendRedirect("/clients");
     }
 }

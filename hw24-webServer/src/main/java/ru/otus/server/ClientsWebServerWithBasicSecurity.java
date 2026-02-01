@@ -13,25 +13,25 @@ import org.eclipse.jetty.security.authentication.BasicAuthenticator;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ResourceHandler;
+import ru.otus.crm.service.DBServiceClient;
 import ru.otus.crm.service.TemplateProcessor;
-import ru.otus.dao.ClientDao;
 import ru.otus.helpers.FileSystemHelper;
 import ru.otus.servlet.ClientServlet;
 
-public class UsersWebServerWithBasicSecurity implements UsersWebServer {
+public class ClientsWebServerWithBasicSecurity implements ClientsWebServer {
     private static final String START_PAGE_NAME = "index.html";
     private static final String COMMON_RESOURCES_DIR = "static";
     private static final String ROLE_NAME_USER = "user";
     private static final String ROLE_NAME_ADMIN = "admin";
 
-    private final ClientDao clientDao;
+    private final DBServiceClient dbServiceClient;
     protected final TemplateProcessor templateProcessor;
     private final Server server;
     private final LoginService loginService;
 
-    public UsersWebServerWithBasicSecurity(
-            ClientDao clientDao, int port, LoginService loginService, TemplateProcessor templateProcessor) {
-        this.clientDao = clientDao;
+    public ClientsWebServerWithBasicSecurity(
+            DBServiceClient dbServiceClient, int port, LoginService loginService, TemplateProcessor templateProcessor) {
+        this.dbServiceClient = dbServiceClient;
         this.templateProcessor = templateProcessor;
         this.loginService = loginService;
         this.server = new Server(port);
@@ -102,7 +102,7 @@ public class UsersWebServerWithBasicSecurity implements UsersWebServer {
     private ServletContextHandler createServletContextHandler() {
         ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletContextHandler.addServlet(
-                new ServletHolder(new ClientServlet(clientDao, templateProcessor)), "/clients");
+                new ServletHolder(new ClientServlet(dbServiceClient, templateProcessor)), "/clients");
         return servletContextHandler;
     }
 }
