@@ -79,7 +79,7 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
         }
         Object[] params = new Object[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
-            params[i] = appComponentsByName.get(parameters[i].getName());
+            params[i] = getAppComponent(parameters[i].getType());
         }
         return params;
     }
