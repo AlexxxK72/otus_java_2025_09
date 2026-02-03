@@ -14,6 +14,7 @@ create table Phone
 (
     id        bigserial not null primary key,
     number    varchar(255),
-    client_id bigint    not null references Client (id)
+    client_id bigint    not null references Client (id),
+    phone_order int
 );
 
