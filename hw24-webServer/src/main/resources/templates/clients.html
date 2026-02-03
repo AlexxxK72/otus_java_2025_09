@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Список клиентов</title>
+    <style>
+        body {
+            font-family: Arial,
+            sans-serif; margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px; text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+        .form-group label {
+            width: 120px;
+            font-weight: bold;
+            text-align: right;
+        }
+        .form-group input {
+            flex: 1;
+            max-width: 300px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+<h1>Клиенты</h1>
+
+<h2>Добавить клиента</h2>
+
+<form method="post" action="/clients">
+    <div class="form-group">
+        <label for="name">Имя:</label>
+        <input id="name" name="name" type="text" required>
+    </div>
+    <div class="form-group">
+        <label for="street">Адрес:</label>
+        <input id="street" name="street" type="text" required>
+    </div>
+    <div class="form-group">
+        <label>Телефон 1:</label>
+        <input name="phone" type="text">
+    </div>
+    <div class="form-group">
+        <label>Телефон 2:</label>
+        <input name="phone" type="text">
+    </div>
+    <div class="form-group">
+        <label>Телефон 3:</label>
+        <input name="phone" type="text">
+    </div>
+    <div class="form-group">
+        <label></label>
+        <button type="submit">Сохранить</button>
+    </div>
+</form>
+
+<hr>
+
+<#if clients?has_content>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Адрес</th>
+        <th>Телефоны</th>
+    </tr>
+    </thead>
+    <tbody>
+    <#list clients as client>
+    <tr>
+        <td>${client.id}</td>
+        <td>${client.name}</td>
+        <td>${client.address.street!"Не указан"}</td>
+        <td>
+            <#if client.phones?has_content>
+            <#list client.phones as phone>
+            ${phone.number}<#sep>, </#list>
+        <#else>
+        Нет телефонов
+    </#if>
+    </td>
+    </tr>
+    </#list>
+    </tbody>
+</table>
+<#else>
+<p>Клиентов нет</p>
+</#if>
+</body>
+</html>
