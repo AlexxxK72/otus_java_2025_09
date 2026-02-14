@@ -20,12 +20,15 @@ public class Counter {
 
                 if (orderAsc) {
                     current++;
-                    if (current == 10) orderAsc = false;
+                    if (current == 10) {
+                        orderAsc = false;
+                    }
                 } else {
                     current--;
-                    if (current == 1) orderAsc = true;
+                    if (current == 1) {
+                        orderAsc = true;
+                    }
                 }
-
                 last = numberThread;
                 sleep();
                 notifyAll();
